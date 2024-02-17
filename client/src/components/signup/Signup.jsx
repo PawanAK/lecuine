@@ -16,7 +16,12 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:4000/signup", Inputs);
+    const log = await axios.post(
+      "http://localhost:4000/api/user/register",
+      Inputs
+    );
+
+    console.log(log);
 
     console.log("Submitted data:", Inputs);
     setInputs({ email: "", userName: "", password: "" });
