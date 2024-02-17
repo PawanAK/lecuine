@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const auth = require('./routes/auth')
+const list = require('./routes/list')
 
 const userRoutes = require('./routes/user')
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 //routes
 // app.use('/api/user', userRoutes)
 app.use('/api/user', auth)
+app.use('/api/task', list)
 
 
 // connect to db
