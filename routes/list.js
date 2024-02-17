@@ -33,6 +33,48 @@ router.put('/updateTask/:id', async (req, res) => {
     }
 });
 
+router.put('/deleteTask/:id', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const existingUser = await User.findOneAndUpdate({ email }, { $pull: { list: req.params.id } });
+        if (existingUser) {
+            await List.findByIdAndDelete(req.params.id).then(() => {
+                res.status(200).json({ message: "Task deleted" });
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+
+//getTask
+
+router.get('/getTasks/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const list = await List.find({ user: req.params.id }).sort({ createdAt: -1 });
+        if (list.length !== 0) {
+            res.status(200).json({ list: list });
+        }
+        else {
+            res.status(200).json({ message: "No Task Found" });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+// router.get('/getTask/:id', async (req, res) => {
+//     const list = await List.find({ user: req.params.id }).sort({ createdAt: -1 });
+//     res.status(200).json({ list });
+// }
 
 
 module.exports = router;
