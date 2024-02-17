@@ -18,6 +18,11 @@ function Todo() {
     setInputs({ title: "", body: "" }); // Reset inputs after submission
   };
 
+  const del = (id) => {
+    Arrays.splice(id, "1");
+    setArrays([...Arrays]);
+  };
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -51,7 +56,12 @@ function Todo() {
 
       <div>
         {Arrays.map((item, index) => (
-          <TodoCard id={index} title={item.title} body={item.body} delid={} />
+          <TodoCard
+            id={index}
+            title={item.title}
+            body={item.body}
+            delid={del}
+          />
         ))}
       </div>
     </>

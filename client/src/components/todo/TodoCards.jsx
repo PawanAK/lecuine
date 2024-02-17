@@ -14,7 +14,7 @@ function TodoCard({ title, body, id, delid }) {
         <Button
           variant="danger"
           onClick={() => {
-            console.log(id);
+            delid(id);
           }}>
           Delete
         </Button>
