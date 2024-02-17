@@ -11,8 +11,8 @@ function Navblock() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">SignUp</Nav.Link>
-            <Nav.Link href="#link">SignIn</Nav.Link>
+            <Nav.Link href="/signup">Sign Up</Nav.Link>
+            <Nav.Link href="/signin">Sign In</Nav.Link>
             <Nav.Link href="#link">Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
