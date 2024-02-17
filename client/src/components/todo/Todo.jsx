@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TodoCard from "./TodoCards";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -16,15 +18,26 @@ function Todo() {
     e.preventDefault();
     setArrays([...Arrays, inputs]);
     setInputs({ title: "", body: "" }); // Reset inputs after submission
+    toast.success("Todo added successfully");
+  };
+
+  const handleUpdate = (id, updatedTodo) => {
+    const updatedTodos = Arrays.map((todo, index) =>
+      index === id ? updatedTodo : todo
+    );
+    setArrays(updatedTodos);
+    toast.success("Todo updated successfully");
   };
 
   const del = (id) => {
-    Arrays.splice(id, "1");
+    Arrays.splice(id, 1);
     setArrays([...Arrays]);
+    toast.error("Todo deleted successfully");
   };
 
   return (
     <>
+      <ToastContainer />
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="title">
           <Form.Label>Title</Form.Label>
@@ -57,10 +70,12 @@ function Todo() {
       <div>
         {Arrays.map((item, index) => (
           <TodoCard
+            key={index}
             id={index}
             title={item.title}
             body={item.body}
             delid={del}
+            onUpdate={(updatedTodo) => handleUpdate(index, updatedTodo)}
           />
         ))}
       </div>
